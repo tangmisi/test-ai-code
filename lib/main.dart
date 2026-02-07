@@ -12,7 +12,15 @@ class CalculatorApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Local AI Calculator',
-      theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        useMaterial3: true,
+        scaffoldBackgroundColor: Colors.grey[800],
+        appBarTheme: AppBarTheme(
+          backgroundColor: Colors.blue,
+          foregroundColor: Colors.white,
+        ),
+      ),
       home: const CalculatorScreen(),
     );
   }
@@ -49,7 +57,10 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
         if (_operand == "+") _output = (_num1 + _num2).toString();
         if (_operand == "-") _output = (_num1 - _num2).toString();
         if (_operand == "×") _output = (_num1 * _num2).toString();
-        if (_operand == "÷") _output = (_num1 / _num2).toString();
+        if (_operand == "÷") {
+          if (_num2 != 0) _output = (_num1 / _num2).toString();
+          else _output = "Error";
+        }
         _num1 = 0;
         _num2 = 0;
         _operand = "";
