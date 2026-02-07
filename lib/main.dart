@@ -123,6 +123,12 @@ class _CalculatorScreenState extends State<CalculatorScreen> {
           )
         ],
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        tooltip: 'Add',
+        child: Icon(Icons.add),
+      ),
     );
   }
 }
