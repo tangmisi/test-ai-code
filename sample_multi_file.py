@@ -28,7 +28,10 @@ def read_file(path: str):
 
 @tool
 def write_file(path: str, content: str):
-    """指定されたパスにファイルを書き込みます。ディレクトリがない場合は自動作成します。"""
+    """
+    指定されたパスにファイルを書き込みます。
+    ディレクトリがない場合は自動作成します。
+    """
     try:
         os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, "w", encoding="utf-8") as f:
@@ -48,7 +51,9 @@ def list_project_files(directory: str = "lib"):
 
 @tool
 def run_flutter_analyze():
-    """flutter analyzeを実行し、現在のコードにエラーがないか確認します。"""
+    """
+    flutter analyzeを実行し、現在のコードにエラーがないか確認します。
+    """
     result = subprocess.run("flutter analyze", capture_output=True, text=True, shell=True)
     if result.returncode == 0:
         return "静的解析エラーはありません。完璧です。"
@@ -57,8 +62,7 @@ def run_flutter_analyze():
 
 # --- 3. エージェントの構築 ---
 
-# tools = [read_file, write_file, list_project_files, run_flutter_analyze]
-tools = [read_file, write_file, list_project_files]
+tools = [read_file, write_file, list_project_files, run_flutter_analyze]
 
 # 最新の LangChain 仕様に準拠したプロンプト
 prompt = ChatPromptTemplate.from_messages([
@@ -106,10 +110,11 @@ def main():
 
     # 人間による動作確認
     print("\n--- プレビュービルドを開始します (macOS) ---")
-    # proc = subprocess.Popen(["flutter", "run", "-d", "macos"]) 
+    proc = subprocess.Popen(["flutter", "run", "-d", "macos"]) 
     
-    is_ok = input("\nアプリの動作は期待通りですか？ (y: コミットしてPR作成 / n: 破棄): ").lower()
-    # proc.terminate()
+    is_ok = input("\nアプリの動作は期待通りですか？ " \
+                    "(y: コミットしてPR作成 / n: 破棄): ").lower()
+    proc.terminate()
 
     if is_ok == 'y':
         print("📦 Git操作とPR作成を実行します...")
